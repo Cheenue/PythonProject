@@ -19,6 +19,13 @@
 # # this ADDS a new key to the dictionary and I can make it pair up with anything BUT LISTS or DICTIONARIES
 # print(movie)
 #
+# EXAMPLE Append()
+# movie = {'cast': ['Tom']}
+#
+# movie['cast'].append('Robert')
+# this makes a FILE within the list CAST called ROBERT
+# if it was written like (['Robert']) then it would be a FOLDER within the LIST [] of CAST
+
 # # KEYS have to be UNIQUE in a dictionary but VALUES can be the same in it
 
 grocery_prices = {
