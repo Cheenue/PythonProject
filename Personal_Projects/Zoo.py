@@ -51,12 +51,12 @@ class Animal:
 #         break
 
 while True:
-    action = input("What would you like to do? (CREATE, READ, UPDATE, or DELETE) ").lower()
+    action = input("\nWhat would you like to do? (CREATE, READ, UPDATE, DELETE or 'Q' to quit): ").lower()
 
     # CREATE/ADD a new animal
     if action == "create":
         t = input("What type of animal is it? ").lower()
-        n = input("What name is it? ").lower()
+        n = input("What is its name? ").lower()
         h = input("What is its height in centimeters? ").lower()
         w = input("What is its weight in kilograms? ").lower()
         p = input("What is its power level (0-100)? ").lower()
@@ -65,7 +65,7 @@ while True:
 
         zoo_storage.append(new_animal)
 
-        print(f"Zoo storage is currently at {zoo_storage}")
+        print(f"The Zoo currently has these animals: {zoo_storage}")
 
     elif action == "read":
         print("Zoo inhabitants")
@@ -83,13 +83,20 @@ while True:
                 print(f"Update was successful. New name: {new_name}")
 
     elif action == "delete":
-        remove_animal = input("What animal would you like to delete? ").lower()
+        remove_animal = input("Which animal would you like to remove? ").lower()
         for animal in zoo_storage:
             if animal.name == remove_animal:
                zoo_storage.remove(animal)
+               print(f"Remove was successful. Removed animal: {remove_animal}")
+            else:
+                print(f'{remove_animal} is not in the zoo. Please try again.')
 
     elif action == "q":
-        break
+        if len(zoo_storage) == 1:
+            print(f"The Zoo has {len(zoo_storage)} animal in total.")
+        elif len(zoo_storage) > 1:
+            print(f"The Zoo has {len(zoo_storage)} animals in total.")
+            break
 
     else:
         print("Invalid command. Try again.")
