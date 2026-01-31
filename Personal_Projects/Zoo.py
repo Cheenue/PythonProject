@@ -1,7 +1,6 @@
 import self
 
 zoo_staff = 0
-zoo_total_animals = 0
 zoo_storage = []
 
 
