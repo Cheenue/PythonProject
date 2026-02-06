@@ -1,0 +1,14 @@
+
+# Run your program with python playback.py. Type This is CS50 and press Enter. Your program should output:
+# This...is...CS50
+
+sentence = input("Type here: ").strip()
+new_sentence = sentence.replace(" ", "...")
+print(new_sentence)
+
+
+# Run your program with python playback.py. Type This is our week on functions and press Enter. Your program should output:
+# This...is...our...week...on...functions
+
+# Run your program with python playback.py. Type Let's implement a function called hello and press Enter. Your program should output
+# Let's...implement...a...function...called...hello
