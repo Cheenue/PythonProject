@@ -1,4 +1,5 @@
 import self
+import time
 
 zoo_staff = 0
 zoo_storage = []
@@ -20,15 +21,15 @@ zoo_storage = []
 # I first wanted to create the staff but then went against it since this is a zoo I'm creating. I wanted to use the CRUD method to Creat/Add, Read, Update, and then be able to Delete in the same code
 
 class Animal:
-    def __init__(self, type, name, height, weight, power):
-        self.type = type
+    def __init__(self, name, type, height, weight, power):
         self.name = name
+        self.type = type
         self.height = height
         self.weight = weight
         self.power = power
 
     def __repr__(self):
-        return f"{self.name.capitalize()} the {self.type}"
+        return f"{self.name.capitalize()} the {self.type.capitalize()}"
 # while True:
 #     choice = first_question = input("Add an animal to the zoo? ").lower()
 #     if choice == "yes":
@@ -55,24 +56,37 @@ while True:
 
     # CREATE/ADD a new animal
     if action == "create":
-        t = input("What type of animal is it? ").lower()
         n = input("What is its name? ").lower()
+        t = input("What type of animal is it? ").lower()
         h = input("What is its height in centimeters? ").lower()
         w = input("What is its weight in kilograms? ").lower()
         p = input("What is its power level (0-100)? ").lower()
 
-        new_animal = Animal(t, n, h, w, p)
+        new_animal = Animal(n, t, h, w, p)
 
         zoo_storage.append(new_animal)
 
-        print(f"The Zoo currently has these animals: {zoo_storage}")
+        power =  int(p)
+
+        if power < 0 or power > 100:
+            print("Error: Power level must be between 0 and 100!")
+            continue
+        else:
+            print(f"Successfully added {n} to the zoo!")
+            time.sleep(0.5)
+            print(f"The Zoo currently has these animals: {zoo_storage}")
+
 
     elif action == "read":
         print("Zoo inhabitants")
         print("*"*25)
         for animal in zoo_storage:
-            print(animal)
-        print(f'Total number of animals in the zoo: {len(zoo_storage)}')
+            print(f"--- {animal.name.upper()} ---")
+            print(f"  🐾 Species: {animal.type.capitalize()}")
+            print(f"  📏 Height:  {animal.height}cm")
+            print(f"  ⚖️ Weight:  {animal.weight}kg")
+            print(f"  ⚡  Power:   {animal.power}/100")
+            print("-" * 25)
 
     elif action == "update":
         name_to_find = input("What name would you like to update? ").lower()
@@ -92,12 +106,12 @@ while True:
                 print(f'{remove_animal} is not in the zoo. Please try again.')
 
     elif action == "q":
-        if len(zoo_storage) == 1:
-            print(f"The Zoo has {len(zoo_storage)} animal in total.")
-        elif len(zoo_storage) > 1:
-            print(f"The Zoo has {len(zoo_storage)} animals in total.")
-            break
+        break
 
     else:
         print("Invalid command. Try again.")
 
+if len(zoo_storage) == 1:
+    print(f"The Zoo has {len(zoo_storage)} animal in total.")
+elif len(zoo_storage) > 1:
+    print(f"The Zoo has {len(zoo_storage)} animals in total.")
