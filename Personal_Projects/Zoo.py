@@ -1,4 +1,4 @@
-import self
+import uuid
 import time
 
 zoo_staff = 0
@@ -18,10 +18,11 @@ zoo_storage = []
 #         break
 # print(zoo_staff)
 #
-# I first wanted to create the staff but then went against it since this is a zoo I'm creating. I wanted to use the CRUD method to Creat/Add, Read, Update, and then be able to Delete in the same code
+# I first wanted to create the staff but then went against it since this is a zoo I'm creating. I wanted to use the CRUD method to Create/Add, Read, Update, and then be able to Delete in the same code
 
 class Animal:
     def __init__(self, name, type, height, weight, power):
+        self.id = str(uuid.uuid4())[:8]  # Generates a short 8-character ID
         self.name = name
         self.type = type
         self.height = height
@@ -58,9 +59,30 @@ while True:
     if action == "create":
         n = input("What is its name? ").lower()
         t = input("What type of animal is it? ").lower()
-        h = input("What is its height in centimeters? ").lower()
-        w = input("What is its weight in kilograms? ").lower()
-        p = input("What is its power level (0-100)? ").lower()
+        while True:
+            h = input("What is its height in centimeters? ").lower()  # do not convert to int here
+            try:
+                v1 = int(h)
+            except ValueError:
+                print("That's not an integer.")
+            else:
+                break
+        while True:
+            w = input("What is its weight in kilograms? ").lower()
+            try:
+                v2 = int(w)
+            except ValueError:
+                print("That's not an integer.")
+            else:
+                break
+        while True:
+            p = input("What is its power level (0-100)? ").lower()
+            try:
+                v3 = int(p)
+            except ValueError:
+                print("That's not an integer.")
+            else:
+                break
 
         new_animal = Animal(n, t, h, w, p)
 
@@ -82,6 +104,7 @@ while True:
         print("*"*25)
         for animal in zoo_storage:
             print(f"--- {animal.name.upper()} ---")
+            print(f"Animal ID: {animal.id}")
             print(f"  🐾 Species: {animal.type.capitalize()}")
             print(f"  📏 Height:  {animal.height}cm")
             print(f"  ⚖️ Weight:  {animal.weight}kg")
@@ -97,13 +120,15 @@ while True:
                 print(f"Update was successful. New name: {new_name}")
 
     elif action == "delete":
-        remove_animal = input("Which animal would you like to remove? ").lower()
-        for animal in zoo_storage:
-            if animal.name == remove_animal:
-               zoo_storage.remove(animal)
-               print(f"Remove was successful. Removed animal: {remove_animal}")
-            else:
-                print(f'{remove_animal} is not in the zoo. Please try again.')
+        remove_id = input("Enter the ID of the animal to remove: ").lower()
+        # This is a "List Comprehension" - the professional way to filter lists
+        original_count = len(zoo_storage)
+        zoo_storage = [animals for animals in zoo_storage if animals.id != remove_id]
+
+        if len(zoo_storage) < original_count:
+            print(f"Success! Animal with ID {remove_id} has been removed.")
+        else:
+            print(f"Error: No animal found with ID {remove_id}.")
 
     elif action == "q":
         break
