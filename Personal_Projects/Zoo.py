@@ -22,7 +22,10 @@ zoo_storage = []
 
 class Animal:
     def __init__(self, name, type, height, weight, power):
-        self.id = str(uuid.uuid4())[:8]  # Generates a short 8-character ID
+        self.id = str(uuid.uuid4())[:8]
+            # Generates a short 8-character ID
+            # uuid4() creates a random UUID
+            # Universally Unique Identifier (UUID) version 4
         self.name = name
         self.type = type
         self.height = height
